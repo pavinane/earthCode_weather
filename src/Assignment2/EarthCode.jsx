@@ -27,7 +27,7 @@ const EarthCode = () => {
     axios.get(url).then((response) => {
       //   setPost(response.data.near_earth_objects[0]);
       setWeather(response.data.current);
-      console.log("random", response.data.current);
+      console.log("weather", response.data.current);
     });
   };
 
@@ -96,20 +96,24 @@ const EarthCode = () => {
         <p>
           <b>Country</b>: &nbsp;{post.name}
         </p>
-        <p>
-          <b>Temperature</b>: &nbsp;{weather.temperature}
-        </p>
-        <p>
-          <b>WindSpeed</b>: &nbsp; {weather.wind_speed}
-        </p>
-        <div>
-          <p>
-            <b>Icons</b>:&nbsp; <img src={weather.weather_icons} alt="" />
-          </p>
-        </div>
-        <p>
-          <b>Precip</b>: &nbsp;{weather.precip}
-        </p>
+        {weather && (
+          <>
+            <p>
+              <b>Temperature</b>: &nbsp;{weather.temperature}
+            </p>
+            <p>
+              <b>WindSpeed</b>: &nbsp; {weather.wind_speed}
+            </p>
+            <div>
+              <p>
+                <b>Icons</b>:&nbsp; <img src={weather.weather_icons} alt="" />
+              </p>
+            </div>
+            <p>
+              <b>Precip</b>: &nbsp;{weather.precip}
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
