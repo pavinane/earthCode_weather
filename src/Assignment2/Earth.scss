@@ -1,0 +1,29 @@
+.earth{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .btn-box{
+        button{
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            color: #000;
+        }
+        .disablebtn{
+            background-color: rgb(105, 105, 105);
+          
+        }
+        .enablebtn{
+            background-color: rgb(209, 216, 209);
+        }
+    }
+}
+table{
+    tr{
+        text-align: center;
+    }
+}
+img{
+    width: 50px;
+}
