@@ -5,6 +5,7 @@ import "./Earth.scss";
 
 const EarthCode = () => {
   const [post, setPost] = useState([]);
+  const [weather, setWeather] = useState([]);
 
   const { register, handleSubmit, watch } = useForm();
 
@@ -18,6 +19,15 @@ const EarthCode = () => {
     axios.get(url).then((response) => {
       setPost(response.data[0]);
       console.log(response.data[0]);
+    });
+  };
+
+  const onWeather = () => {
+    const url = `http://api.weatherstack.com/current?access_key=92387fac97863e89210abb48ebf0b520&QUERY=${post.capital}`;
+    axios.get(url).then((response) => {
+      //   setPost(response.data.near_earth_objects[0]);
+      setWeather(response.data.current);
+      console.log("random", response.data.current);
     });
   };
 
@@ -39,12 +49,9 @@ const EarthCode = () => {
           >
             Submit
           </button>
-          <button type="button" className="col-md-6">
-            Capital Weather
-          </button>
         </div>
       </form>
-      <div className="earth-show-dat col-md-6 mt-5">
+      <div className="earth-show-dat col-md-8 mt-5">
         <table className="table table-dark table-striped">
           <thead>
             <tr>
@@ -53,6 +60,7 @@ const EarthCode = () => {
               <th>Population</th>
               <th>Lat&Lng</th>
               <th>Country Flag</th>
+              <th>Weather</th>
             </tr>
           </thead>
           <tbody>
@@ -69,14 +77,39 @@ const EarthCode = () => {
               </td>
 
               <td>
-                <p>{post.latlng[0] + " , " + post.latlng[1]}</p>
+                <p>{post.latlng}</p>
               </td>
               <td>
                 <img src={post.flag ? post.flag : ""} alt="flag" />
               </td>
+              <td>
+                <button className="btn btn-primary" onClick={onWeather}>
+                  Weather
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="d-flex col-md-8 justify-content-evenly flex-column text-white ">
+        <p>
+          <b>Country</b>: &nbsp;{post.name}
+        </p>
+        <p>
+          <b>Temperature</b>: &nbsp;{weather.temperature}
+        </p>
+        <p>
+          <b>WindSpeed</b>: &nbsp; {weather.wind_speed}
+        </p>
+        <div>
+          <p>
+            <b>Icons</b>:&nbsp; <img src={weather.weather_icons} alt="" />
+          </p>
+        </div>
+        <p>
+          <b>Precip</b>: &nbsp;{weather.precip}
+        </p>
       </div>
     </div>
   );
